@@ -116,7 +116,6 @@ def fetch_intraday_data(security_id, instrument_type, from_date, to_date, retrie
         "exchangeSegment": "NSE_FNO",
         "instrument": instrument_type,
         "interval": "ONE_MINUTE",
-        "oi": True,
         "fromDate": from_date,
         "toDate": to_date
     }
@@ -216,7 +215,7 @@ async def start_collector():
                         to_date_str
                     )
 
-                    if not intraday_data.get('open'):
+                    if not intraday_data or not intraday_data.get('open'):
                         logger.warning(f"No or empty intraday data found for {security['symbol']}")
                         continue
 
